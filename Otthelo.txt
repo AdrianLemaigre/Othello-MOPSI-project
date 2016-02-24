@@ -1,0 +1,40 @@
+Otthelo
+
+Idées:
+- coder le jeu sur grille.
+	- créer une classe Pion avec les valeurs Noire, Blanche et vide
+	- créer une classe Grille (matrice) de Pions avec possibilité de modifier
+	- coder la recherche de coups possibles (un coup = une position i, et une couleur, vérifier qu'au coup d'avant, la case était vide)
+	- coder la modification du plateau en fonction d'un coup donné
+	- coder une fonction d'arret quand personne ne peut jouer.
+- pour chaque plateau, donner une valeur
+- code de la fonction récursive
+	- passer en argument le tableau et le modifier au fur et a mesure
+	- algo minmax + alphabeta
+
+algo minmax (int profondeur, grille plateau, int alpha, int beta, bool joueur, bool etat_maxmin){
+	if (profondeur = 0){
+		"calculer la valeur du plateau et donner cette valeur au noeud"
+	}
+	else{
+		"determiner les mouvements possibles" -> les mettre dans la liste fils
+		if(liste des fils est vide){
+			"le meme joueur rejoue"
+			minmax(profondeur-1, grille plateaunouveau, alpha, beta, joueur, etat_maxmin)
+		}
+		else{
+			for(tous les fils){
+				if(conditions sur alpha, beta verifiées){
+					"créer plateaunouveau"
+					minmax(profondeur-1, grille plateaunouveau, alpha, beta, autrejoueur, nouvel_etat_maxmin)
+					"calcul de la valeur du plateau"
+					"modifier alpha et beta"
+
+					}
+				else{
+					"ne rien faire"
+				}
+			}
+		}
+	}
+}
