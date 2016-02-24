@@ -30,9 +30,11 @@ public:
   //Accesseurs et mutateurs
   void settaille(int t);
   int gettaille() const;
+  Pion get(int i, int j);
 
   // Autres méthodes
-  Grille ajout_pion (int i, int j, )
+  Grille ajout_pion(int i, int j, int couleur);
+  int score(Grille g, bool joueur);
 
 private:
   int taille;
@@ -56,11 +58,11 @@ table_point[7][0] = 99;table_point[7][1] = -8;table_point[7][2] = 8;table_point[
 
 // joueur vaut 0 pour blan et 1 pour noir
 // Cette fonction renvoie la valeurd'une grille pour un joueur
-int score (Grille g, bool joueur){
-	int score = 0
-	for(int i = 0; i < Grille.gettaille(); i++){
-		for(int j = 0; j < Grille.gettaille(); j++){
-			if(Grille[i][j].getcouleur() == joueur){
+int Grille::score(Grille g, bool joueur){
+	int score = 0;
+	for(int i = 0; i < g.gettaille(); i++){
+		for(int j = 0; j < g.gettaille(); j++){
+			if(g.get(i,j).getcouleur() == joueur){
 				score += table_point[i][j];
 			}
 		}
