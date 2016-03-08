@@ -31,14 +31,22 @@ public:
   void settaille(int t);
   int gettaille() const;
   Pion get(int i, int j);
+  void set(Pion p, int i, int j);
+  Pion get(int k);
+  void set(Pion p, int k);
 
   // Autres méthodes
   Grille ajout_pion(int i, int j, int couleur);
   int score(Grille g, bool joueur);
+  // Grille Etape_de_jeu()
+  // Fonction d'un coup joué
+  // Grille algo_minmax();
+  // Fonction globale qui renvoie la grille finale
 
 private:
   int taille;
   Pion* table;
+  int direction [4] = {1, -1, taille,-taille}
 };
 
 //Paramètres
@@ -61,3 +69,4 @@ void init_table_point(){
   table_point[7][1] = -8;table_point[7][2] = -24;table_point[7][3] = -4;table_point[7][4] = -3;table_point[7][5] = -3;table_point[7][6] = -4;table_point[7][7] = -24;table_point[7][8] = -8;
   table_point[8][1] = 99;table_point[8][2] = -8;table_point[8][3] = 8;table_point[8][4] = 6;table_point[8][5] = 6;table_point[8][6] = 8;table_point[8][7] = -8;table_point[8][8] = 99;
 }
+
