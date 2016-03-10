@@ -144,3 +144,29 @@ vector<Grille> Grille::coups_possibles(int couleur){
 	return liste_coups;
 }
 
+// Grille Grille::minmax (int profondeur, int alpha, int beta, bool joueur, bool etat_maxmin){
+// 	if (profondeur = 0){
+// 		"calculer la valeur du plateau et donner cette valeur au noeud"
+// 	}
+// 	else{
+// 		"determiner les mouvements possibles" -> les mettre dans la liste fils
+// 		if(liste des fils est vide){
+// 			"le meme joueur rejoue"
+// 			minmax(profondeur-1, grille plateaunouveau, alpha, beta, joueur, etat_maxmin)
+// 		}
+// 		else{
+// 			for(tous les fils){
+// 				if(conditions sur alpha, beta verifiées){
+// 					"créer plateaunouveau"
+// 					minmax(profondeur-1, grille plateaunouveau, alpha, beta, autrejoueur, nouvel_etat_maxmin)
+// 					"calcul de la valeur du plateau"
+// 					"modifier alpha et beta"
+
+// 					}
+// 				else{
+// 					"ne rien faire"
+// 				}
+// 			}
+// 		}
+// 	}
+// }

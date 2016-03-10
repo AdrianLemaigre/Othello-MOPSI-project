@@ -47,9 +47,7 @@ public:
   Grille ajout_pion(int i, int j, int couleur);
   vector<Grille> coups_possibles(int couleur);
   int score(bool joueur);
-  // Grille Etape_de_jeu()
-  // Fonction d'un coup joué
-  // Grille algo_minmax();
+  Grille minmax (int profondeur, int alpha, int beta, bool joueur, bool etat_maxmin);
   // Fonction globale qui renvoie la grille finale
 
 private:
