@@ -1,3 +1,7 @@
+#include <vector>
+
+using namespace std;
+
 // Classes
 // Classe Pion
 
@@ -27,6 +31,9 @@ public:
   Grille();
   Grille(int t);
 
+  // Destructeur
+  ~Grille();
+
   //Accesseurs et mutateurs
   void settaille(int t);
   int gettaille() const;
@@ -36,8 +43,10 @@ public:
   void set(Pion p, int k);
 
   // Autres méthodes
+  bool test_placement(int i, int j, int couleur);
   Grille ajout_pion(int i, int j, int couleur);
-  int score(Grille g, bool joueur);
+  vector<Grille> coups_possibles(int couleur);
+  int score(bool joueur);
   // Grille Etape_de_jeu()
   // Fonction d'un coup joué
   // Grille algo_minmax();
@@ -46,7 +55,7 @@ public:
 private:
   int taille;
   Pion* table;
-  int direction [4] = {1, -1, taille,-taille}
+  int direction [4];
 };
 
 //Paramètres
