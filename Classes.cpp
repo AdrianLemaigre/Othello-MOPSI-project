@@ -1,5 +1,24 @@
 #include "Classes.h"
 
+int table_point[10][10];
+
+void init_table_point(){
+    for(int i = 0; i<10; i++){
+        for (int j; j<10; j++){
+            table_point[i][j] = 0;
+        }
+    }
+    table_point[1][1] = 99;table_point[1][2] = -8;table_point[1][3] = 8;table_point[1][4] = 6;table_point[1][5] = 6;table_point[1][6] = 8;table_point[1][7] = -8;table_point[1][8] = 99;
+    table_point[2][1] = -8;table_point[2][2] = -24;table_point[2][3] = -4;table_point[2][4] = -3;table_point[2][5] = -3;table_point[2][6] = -4;table_point[2][7] = -24;table_point[2][8] = -8;
+    table_point[3][1] = 8;table_point[3][2] = -4;table_point[3][3] = 7;table_point[3][4] = 4;table_point[3][5] = 4;table_point[3][6] = 7;table_point[3][7] = -4;table_point[3][8] = 8;
+    table_point[4][1] = 6;table_point[4][2] = -3;table_point[4][3] = 4;table_point[4][4] = 0;table_point[4][5] = 0;table_point[4][6] = 4;table_point[4][7] = -3;table_point[4][8] = 6;
+    table_point[5][1] = 6;table_point[5][2] = -3;table_point[5][3] = 4;table_point[5][4] = 0;table_point[5][5] = 0;table_point[5][6] = 4;table_point[5][7] = -3;table_point[5][8] = 6;
+    table_point[6][1] = 8;table_point[6][2] = -4;table_point[6][3] = 7;table_point[6][4] = 4;table_point[6][5] = 4;table_point[6][6] = 7;table_point[6][7] = -4;table_point[6][8] = 8;
+    table_point[7][1] = -8;table_point[7][2] = -24;table_point[7][3] = -4;table_point[7][4] = -3;table_point[7][5] = -3;table_point[7][6] = -4;table_point[7][7] = -24;table_point[7][8] = -8;
+    table_point[8][1] = 99;table_point[8][2] = -8;table_point[8][3] = 8;table_point[8][4] = 6;table_point[8][5] = 6;table_point[8][6] = 8;table_point[8][7] = -8;table_point[8][8] = 99;
+}
+
+
 // Classe Pion
 
 Pion::Pion(){
@@ -23,8 +42,11 @@ int Pion::getcouleur() const{
 
 Grille::Grille(){
 	taille = taille_othello;
-	direction = = {1, -1, taille,-taille};
-	table = new Pion [(taille+2)*(taille+2)];
+    direction[0] = 1;
+    direction[1] = -1;
+    direction[2] = taille;
+    direction[3] = -taille;
+    table = new Pion [(taille+2)*(taille+2)];
 	// On place les pions blancs de départ
 	ajout_pion(4,4,0);
 	ajout_pion(5,5,0);
@@ -35,7 +57,10 @@ Grille::Grille(){
 
 Grille::Grille(int t){
 	taille = t;
-	direction = = {1, -1, taille,-taille};
+    direction[0] = 1;
+    direction[1] = -1;
+    direction[2] = taille;
+    direction[3] = -taille;
 	table = new Pion [(taille+2)*(taille+2)];
 	// On place les pions blancs de départ
 	ajout_pion(4,4,0);
@@ -46,7 +71,7 @@ Grille::Grille(int t){
 }
 
 Grille::~Grille(){
-	delete[] table
+    delete[] table;
 }
 
 void Grille::settaille(int t){
@@ -78,25 +103,25 @@ bool Grille::test_placement(int i, int j, int couleur){
 		// On regarse si le placement est hors limites
 		return false;
 	}
-	if (get(taille*i+j).couleur != -1){
+    if (get(taille*i+j).getcouleur() != -1){
 		// On regarde si la case est déja occupée
 		return false;
 	}
-	if (get(taille*(i+1)+j).couleur == 1 - couleur ||
-		get(taille*(i-1)+j).couleur <= 1 - couleur ||
-		get(taille*i+j+1).couleur <= 1 - couleur ||
-		get(taille*i+j-1).couleur <= 1 - couleur){
+    if (get(taille*(i+1)+j).getcouleur() == 1 - couleur ||
+        get(taille*(i-1)+j).getcouleur() <= 1 - couleur ||
+        get(taille*i+j+1).getcouleur() <= 1 - couleur ||
+        get(taille*i+j-1).getcouleur() <= 1 - couleur){
 		// Le placement doit se faire à coté d'un pion de couleur adverse
 		return false;
 	}
 	// Condition lointaine de pions de meme couleur à coder
 	bool cond = false;
 	for(int k =0; k<3; k++){
-		l = 1;
-		while(get(taille*i + j + l*direction[k]).couleur == 1-couleur){
+        int l = 1;
+        while(get(taille*i + j + l*direction[k]).getcouleur() == 1-couleur){
 			l++;
 		}
-		if(get(taille*i + j + l*direction[k]).couleur == couleur){
+        if(get(taille*i + j + l*direction[k]).getcouleur() == couleur){
 			cond = true;
 			Pion p = Pion(couleur);
 			for (int m =1; m<l; m++){
@@ -114,11 +139,11 @@ Grille Grille::ajout_pion(int i, int j, int couleur){
 	}
 	if(test_placement(i,j,couleur)){
 		for(int k =0; k<3; k++){
-			l = 1;
-			while(get(taille*i + j + l*direction[k]).couleur == 1-couleur){
+            int l = 1;
+            while(get(taille*i + j + l*direction[k]).getcouleur() == 1-couleur){
 				l++;
 			}
-			if(get(taille*i + j + l*direction[k]).couleur == couleur){
+            if(get(taille*i + j + l*direction[k]).getcouleur() == couleur){
 				Pion p = Pion(couleur);
 				for (int m =1; m<l; m++){
 					set(p,taille*i + j + m*direction[k]);
@@ -127,7 +152,7 @@ Grille Grille::ajout_pion(int i, int j, int couleur){
 		}
 	}
 	else{
-		throw std::logic_error("On doit placer correctement le pion pour modifier le jeu")
+        throw std::logic_error("On doit placer correctement le pion pour modifier le jeu");
 	}
 	return g;
 }
@@ -137,7 +162,7 @@ vector<Grille> Grille::coups_possibles(int couleur){
 	for(int i = 0; i < taille; i++){
 		for(int j = 0; j < taille; j++){
 			if (test_placement(i,j,couleur)){
-				liste_coup.push_back(ajout_pion(i,j,couleur));
+                liste_coups.push_back(ajout_pion(i,j,couleur));
 			}
 		}
 	}
