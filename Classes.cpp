@@ -169,11 +169,16 @@ vector<Grille> Grille::coups_possibles(int couleur){
 	return liste_coups;
 }
 
-// Grille Grille::minmax (int profondeur, int alpha, int beta, bool joueur, bool etat_maxmin){
+// int Grille::minmax (int profondeur,
+// 					int alpha,
+// 					int beta,
+// 					bool joueur,
+// 					bool etat_maxmin){
 // 	if (profondeur = 0){
-// 		"calculer la valeur du plateau et donner cette valeur au noeud"
+// 		return score(joueur);
 // 	}
 // 	else{
+// 		vector<Grille> liste_coups = coups_possibles(joueur);
 // 		"determiner les mouvements possibles" -> les mettre dans la liste fils
 // 		if(liste des fils est vide){
 // 			"le meme joueur rejoue"
