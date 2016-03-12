@@ -169,34 +169,49 @@ vector<Grille> Grille::coups_possibles(int couleur){
 	return liste_coups;
 }
 
-// int Grille::minmax (int profondeur,
-// 					int alpha,
-// 					int beta,
-// 					bool joueur,
-// 					bool etat_maxmin){
-// 	if (profondeur = 0){
-// 		return score(joueur);
-// 	}
-// 	else{
-// 		vector<Grille> liste_coups = coups_possibles(joueur);
-// 		"determiner les mouvements possibles" -> les mettre dans la liste fils
-// 		if(liste des fils est vide){
-// 			"le meme joueur rejoue"
-// 			minmax(profondeur-1, grille plateaunouveau, alpha, beta, joueur, etat_maxmin)
-// 		}
-// 		else{
-// 			for(tous les fils){
-// 				if(conditions sur alpha, beta verifiées){
-// 					"créer plateaunouveau"
-// 					minmax(profondeur-1, grille plateaunouveau, alpha, beta, autrejoueur, nouvel_etat_maxmin)
-// 					"calcul de la valeur du plateau"
-// 					"modifier alpha et beta"
-
-// 					}
-// 				else{
-// 					"ne rien faire"
-// 				}
-// 			}
-// 		}
-// 	}
-// }
+int Grille::minmax (int profondeur,
+					int alpha,
+					int beta,
+					bool joueur,
+					bool etat_maxim){
+	if (profondeur = 0){
+		return score(joueur);
+	}
+	if (etat_maxim){
+		int v = -300000:
+		vector<Grille> liste_coups = coups_possibles(joueur);
+		if(liste_coups.size() == 0){
+			"le meme joueur rejoue"
+			// A voir
+			minmax(profondeur-1, grille plateaunouveau, alpha, beta, joueur, etat_maxim);
+		}
+		else{
+			for(int i = 0; i < liste_coups.size(); i ++){
+	            v := max(v, liste_coups[i].alphabeta(profondeur - 1, alpha, beta, !joueur, !etat_maxim))
+            	alpha := max(alpha, v)
+				if(beta <= alpha){
+					break;
+				}
+			}
+			return v;
+		}
+	}
+	else{
+		int v = 300000:
+		vector<Grille> liste_coups = coups_possibles(joueur);
+		if(liste_coups.size() == 0){
+			"le meme joueur rejoue"
+			// A voir
+			minmax(profondeur-1, grille plateaunouveau, alpha, beta, joueur, etat_maxim);
+		}
+		else{
+			for(int i = 0; i < liste_coups.size(); i ++){
+	            v := min(v, liste_coups[i].alphabeta(profondeur - 1, alpha, beta, !joueur, !etat_maxim))
+            	alpha := min(beta, v)
+				if(beta <= alpha){
+					break;
+				}
+			}
+			return v;
+	}
+}
