@@ -37,6 +37,7 @@ class Grille
 public:
   // Constructeurs
   Grille(int t = taille_othello);
+  Grille(const Grille& g);
 
   // Destructeur
   ~Grille();

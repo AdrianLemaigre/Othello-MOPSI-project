@@ -31,7 +31,7 @@ Grille::Grille(int t){
     direction[5] = 1 -taille;
     direction[6] = -1 +taille;
     direction[7] = -1 -taille;
-    table = new Pion [(taille+2)*(taille+2)];
+    table = new Pion [taille*taille];
     // On place les pions blancs de départ
     set(Pion(0),4,4);
     set(Pion(0),5,5);
@@ -39,16 +39,21 @@ Grille::Grille(int t){
     set(Pion(1),4,5);
     set(Pion(1),5,4);
     // On initialise les cases des bords à -2
-    for(int i = 0; i < taille+2; i++){
+    for(int i = 0; i < taille; i++){
 	    set(Pion(-2),0,i);
 	    set(Pion(-2),i,0);
-	    set(Pion(-2),taille + 1,i);
-	    set(Pion(-2),i,taille + 1);
-	}
+        set(Pion(-2),taille - 1,i);
+        set(Pion(-2),i,taille - 1);
+    }
+}
+
+Grille::Grille(const Grille& g) {
+    taille = g.taille;
+    table = new Pion [taille*taille];
 }
 
 Grille::~Grille(){
-    delete[] table;
+    //delete[] table;
 }
 
 void Grille::settaille(int t){
@@ -60,7 +65,7 @@ int Grille::gettaille() const{
 }
 
 Pion Grille::get(int i, int j){
-	return table[(taille+2)*i + j];
+    return table[taille*i + j];
 }
 
 Pion Grille::get(int k){
@@ -68,7 +73,7 @@ Pion Grille::get(int k){
 }
 
 void Grille::set(Pion p, int i, int j){
-	table[(taille+2)*i + j] = p;
+    table[taille*i + j] = p;
 }
 
 void Grille::set(Pion p, int k){
@@ -80,52 +85,56 @@ bool Grille::test_placement(int i, int j, int couleur){
 		// On regarse si le placement est hors limites
 		return false;
 	}
-    if (get(taille*i+j).getcouleur() != -1){
+    if (get(i,j).getcouleur() != -1) {
 		// On regarde si la case est déja occupée
-		return false;
-	}
-    if (get(taille*(i+1)+j).getcouleur() == 1 - couleur ||
-        get(taille*(i-1)+j).getcouleur() <= 1 - couleur ||
-        get(taille*i+j+1).getcouleur() <= 1 - couleur ||
-        get(taille*i+j-1).getcouleur() <= 1 - couleur){
-		// Le placement doit se faire à coté d'un pion de couleur adverse
-		return false;
-	}
+        return false;
+    }
+
+    //On regarde s'il y a une case adverse à proximité
+    int couleurAdverse = (couleur) ? 1 : 0;
+
+    bool cond = false;
+    for(int k =0; k<8; k++){
+        if(get(taille*i + j + direction[k]).getcouleur() == couleurAdverse){
+            cond = true;
+        }
+    }
+    if (!cond)
+        return false;
+
 	// Condition lointaine de pions de meme couleur à coder
-	bool cond = false;
+    cond = false;
 	for(int k =0; k<8; k++){
         int l = 1;
         while(get(taille*i + j + l*direction[k]).getcouleur() == 1-couleur){
 			l++;
 		}
-        if(get(taille*i + j + l*direction[k]).getcouleur() == couleur){
+        if (get(taille*i + j + l*direction[k]).getcouleur() == couleur && l>1){
 			cond = true;
-			Pion p = Pion(couleur);
-			for (int m =1; m<l; m++){
-				set(p,taille*i + j + m*direction[k]);
-			}
 		}
 	}
-	return cond;
+    return cond;
 }
 
 Grille Grille::ajout_pion(int i, int j, int couleur){
-	Grille g(taille);
-	for(int a = 0; a < g.taille*g.taille; a++){
+    Grille g(taille-2);
+    for(int a = 0; a < g.taille*g.taille; a++){
 		g.set(table[a], a);
 	}
 	if(test_placement(i,j,couleur)){
+        g.set(Pion(couleur),i,j);
+
 		for(int k =0; k<8; k++){
             int l = 1;
             while(get(taille*i + j + l*direction[k]).getcouleur() == 1-couleur){
 				l++;
 			}
             if(get(taille*i + j + l*direction[k]).getcouleur() == couleur){
-				Pion p = Pion(couleur);
-				for (int m =1; m<l; m++){
-					set(p,taille*i + j + m*direction[k]);
-				}
-			}
+                Pion p = Pion(couleur);
+                for (int m = 1; m<l; m++){
+                    g.set(p,taille*i + j + m*direction[k]);
+                }
+            }
 		}
 	}
 	else{
@@ -143,6 +152,7 @@ vector<Grille> Grille::coups_possibles(int couleur){
 			}
 		}
 	}
+
 	return liste_coups;
 }
 
@@ -152,7 +162,6 @@ int Grille::score(bool joueur){
         for(int j = 1; j <= gettaille(); j++){
             if(get(i,j).getcouleur() == joueur){
                 score += table_point[i][j];
-                cout<<table_point[i][j]<<endl;
             }
         }
     }
@@ -208,10 +217,11 @@ int Grille::minmax (int profondeur,
 }
 
 void Grille::affiche() {
-    for (int i=0; i<taille+2; i++) {
-        for (int j=0; j<taille+2; j++) {
+    for (int i=0; i<taille; i++) {
+        for (int j=0; j<taille; j++) {
             cout<<get(i,j).getcouleur()<<" ";
         }
         cout<<endl;
     }
+    cout<<endl;
 }

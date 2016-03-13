@@ -6,7 +6,9 @@ int main(){
     Grille jeu;
     jeu.affiche();
 
-    cout<<jeu.minmax(5,-30000,30000,true)<<endl;
+    vector<Grille> coups = jeu.coups_possibles(1);
+
+    cout<<coups.size()<<endl;
 
     return 0;
 }
