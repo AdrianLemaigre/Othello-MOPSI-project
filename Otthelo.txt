@@ -41,5 +41,9 @@ algo minmax (int profondeur, grille plateau, int alpha, int beta, bool joueur, b
 
 Fonction de scoring = - patterns
 - bataille pour la mobilité (20 premier coups)
+- mobilités réelles et potentielles,
+- influence
+- stabilité des pions
+- pour les plus sophistiquées, structure des bords et des coins
 
 Pour le calcule du score, retirer celui de l’adversaire pour prendre en compte le fait que l’adversaire veut maximiser son score.

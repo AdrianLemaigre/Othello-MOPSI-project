@@ -20,3 +20,9 @@ void init_table_point(){
     table_point[7][1] = -8;table_point[7][2] = -24;table_point[7][3] = -4;table_point[7][4] = -3;table_point[7][5] = -3;table_point[7][6] = -4;table_point[7][7] = -24;table_point[7][8] = -8;
     table_point[8][1] = 99;table_point[8][2] = -8;table_point[8][3] = 8;table_point[8][4] = 6;table_point[8][5] = 6;table_point[8][6] = 8;table_point[8][7] = -8;table_point[8][8] = 99;
 }
+
+void init_coefs(float pos, float mob, float nb){
+    coeff_pos = pos;
+    coeff_mob = mob;
+    coef_nb = nb;
+}
