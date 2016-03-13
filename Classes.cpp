@@ -103,16 +103,16 @@ bool Grille::test_placement(int i, int j, int couleur){
     }
 
     //On regarde s'il y a une case adverse à proximité
-    int couleurAdverse = (couleur) ? 1 : 0;
-
     bool cond = false;
     for(int k =0; k<8; k++){
-        if(get(taille*i + j + direction[k]).getcouleur() == couleurAdverse){
+        if(get(taille*i + j + direction[k]).getcouleur() == 1 - couleur){
             cond = true;
         }
     }
     if (!cond)
         return false;
+
+    //cout<<"tjrs là ?"<<endl;
 
 	// Condition lointaine de pions de meme couleur à coder
     cond = false;
@@ -174,6 +174,8 @@ int Grille::score(bool joueur){
         for(int j = 1; j <= gettaille(); j++){
             if(get(i,j).getcouleur() == joueur){
                 score += table_point[i][j];
+            } else if (get(i,j).getcouleur() == 1 - joueur) {
+                score -= table_point[i][j];
             }
         }
     }
@@ -183,26 +185,29 @@ int Grille::score(bool joueur){
 int Grille::minmax (int profondeur,
 					int alpha,
 					int beta,
-                    bool joueur){
+                    bool joueur,
+                    bool cible){
+
     if (profondeur == 0){
-        return score(joueur);
+        return score(cible);
 	}
-    if (joueur){
+    if (joueur == cible){
         int v = -300000;
 		vector<Grille> liste_coups = coups_possibles(joueur);
 		if(liste_coups.size() == 0){
             //le meme joueur rejoue
 			// A voir
-            minmax(profondeur-1, alpha, beta, !joueur);
+            return minmax(profondeur-1, alpha, beta, !joueur, cible);
 		}
 		else{
 			for(int i = 0; i < liste_coups.size(); i ++){
-                v = max(v, liste_coups[i].minmax(profondeur - 1, alpha, beta, !joueur));
+                v = max(v, liste_coups[i].minmax(profondeur - 1, alpha, beta, !joueur, cible));
                 alpha = max(alpha, v);
 				if(beta <= alpha){
 					break;
 				}
 			}
+
 			return v;
 		}
     } else {
@@ -211,11 +216,11 @@ int Grille::minmax (int profondeur,
 		if(liste_coups.size() == 0){
             //"le meme joueur rejoue"
 			// A voir
-            minmax(profondeur - 1, alpha, beta, !joueur);
+            return minmax(profondeur - 1, alpha, beta, !joueur, cible);
 		}
 		else{
 			for(int i = 0; i < liste_coups.size(); i ++){
-                v = min(v, liste_coups[i].minmax(profondeur - 1, alpha, beta, !joueur));
+                v = min(v, liste_coups[i].minmax(profondeur - 1, alpha, beta, !joueur, cible));
                 alpha = min(beta, v);
 				if(beta <= alpha){
 					break;

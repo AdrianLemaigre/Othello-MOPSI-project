@@ -4,11 +4,8 @@ int main(){
     init_table_point();
 
     Grille jeu;
-    jeu.affiche();
 
-    vector<Grille> coups = jeu.coups_possibles(1);
-
-    cout<<coups.size()<<endl;
+    cout<<jeu.minmax(2,-30000,30000,true, true)<<endl;
 
     return 0;
 }
