@@ -2,8 +2,13 @@
 #include <utility>
 #include <algorithm>
 #include <iostream>
+#include "Strategie.h"
 
 using namespace std;
+
+//Paramètres
+// Taille du tableau
+const int taille_othello = 8;
 
 // Classes
 // Classe Pion
@@ -31,8 +36,7 @@ class Grille
 {
 public:
   // Constructeurs
-  Grille();
-  Grille(int t);
+  Grille(int t = taille_othello);
 
   // Destructeur
   ~Grille();
@@ -60,8 +64,4 @@ private:
   Pion* table;
   int direction[8];
 };
-
-//Paramètres
-// Taille du tableau
-const int taille_othello = 8;
 

@@ -21,8 +21,8 @@ int Pion::getcouleur() const{
 
 //Classe Grille
 
-Grille::Grille(){
-	taille = taille_othello;
+Grille::Grille(int t){
+    taille = t+2;
     direction[0] = 1;
     direction[1] = -1;
     direction[2] = taille;
@@ -33,32 +33,6 @@ Grille::Grille(){
     direction[7] = -1 -taille;
     table = new Pion [(taille+2)*(taille+2)];
     // On place les pions blancs de départ
-    set(Pion(0),4,4);
-    set(Pion(0),5,5);
-	// On place les pions noirs de départ
-    set(Pion(1),4,5);
-    set(Pion(1),5,4);
-    // On initialise les cases des bords à -2
-    for(int i = 0; i < taille+2; i++){
-	    set(Pion(-2),0,i);
-	    set(Pion(-2),i,0);
-	    set(Pion(-2),taille + 1,i);
-	    set(Pion(-2),i,taille + 1);
-	}
-}
-
-Grille::Grille(int t){
-	taille = t;
-    direction[0] = 1;
-    direction[1] = -1;
-    direction[2] = taille;
-    direction[3] = -taille;
-    direction[4] = 1 + taille;
-    direction[5] = 1 -taille;
-    direction[6] = -1 +taille;
-    direction[7] = -1 -taille;
-	table = new Pion [(taille+2)*(taille+2)];
-	// On place les pions blancs de départ
     set(Pion(0),4,4);
     set(Pion(0),5,5);
 	// On place les pions noirs de départ
@@ -170,6 +144,19 @@ vector<Grille> Grille::coups_possibles(int couleur){
 		}
 	}
 	return liste_coups;
+}
+
+int Grille::score(bool joueur){
+    int score = 0;
+    for(int i = 1; i <= gettaille(); i++){
+        for(int j = 1; j <= gettaille(); j++){
+            if(get(i,j).getcouleur() == joueur){
+                score += table_point[i][j];
+                cout<<table_point[i][j]<<endl;
+            }
+        }
+    }
+    return score;
 }
 
 int Grille::minmax (int profondeur,
