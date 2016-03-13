@@ -58,7 +58,7 @@ public:
 private:
   int taille;
   Pion* table;
-  int direction[4];
+  int direction[8];
 };
 
 //Paramètres

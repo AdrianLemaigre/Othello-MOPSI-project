@@ -27,6 +27,10 @@ Grille::Grille(){
     direction[1] = -1;
     direction[2] = taille;
     direction[3] = -taille;
+    direction[4] = 1 + taille;
+    direction[5] = 1 -taille;
+    direction[6] = -1 +taille;
+    direction[7] = -1 -taille;
     table = new Pion [(taille+2)*(taille+2)];
     // On place les pions blancs de départ
     set(Pion(0),4,4);
@@ -34,6 +38,13 @@ Grille::Grille(){
 	// On place les pions noirs de départ
     set(Pion(1),4,5);
     set(Pion(1),5,4);
+    // On initialise les cases des bords à -2
+    for(int i = 0; i < taille+2; i++){
+	    set(Pion(-2),0,i);
+	    set(Pion(-2),i,0);
+	    set(Pion(-2),taille + 1,i);
+	    set(Pion(-2),i,taille + 1);
+	}
 }
 
 Grille::Grille(int t){
@@ -42,13 +53,24 @@ Grille::Grille(int t){
     direction[1] = -1;
     direction[2] = taille;
     direction[3] = -taille;
+    direction[4] = 1 + taille;
+    direction[5] = 1 -taille;
+    direction[6] = -1 +taille;
+    direction[7] = -1 -taille;
 	table = new Pion [(taille+2)*(taille+2)];
 	// On place les pions blancs de départ
-	ajout_pion(4,4,0);
-	ajout_pion(5,5,0);
+    set(Pion(0),4,4);
+    set(Pion(0),5,5);
 	// On place les pions noirs de départ
-	ajout_pion(4,5,1);
-	ajout_pion(5,4,1);
+    set(Pion(1),4,5);
+    set(Pion(1),5,4);
+    // On initialise les cases des bords à -2
+    for(int i = 0; i < taille+2; i++){
+	    set(Pion(-2),0,i);
+	    set(Pion(-2),i,0);
+	    set(Pion(-2),taille + 1,i);
+	    set(Pion(-2),i,taille + 1);
+	}
 }
 
 Grille::~Grille(){
@@ -64,7 +86,7 @@ int Grille::gettaille() const{
 }
 
 Pion Grille::get(int i, int j){
-	return table[taille*i + j];
+	return table[(taille+2)*i + j];
 }
 
 Pion Grille::get(int k){
@@ -72,7 +94,7 @@ Pion Grille::get(int k){
 }
 
 void Grille::set(Pion p, int i, int j){
-	table[taille*i + j] = p;
+	table[(taille+2)*i + j] = p;
 }
 
 void Grille::set(Pion p, int k){
@@ -97,7 +119,7 @@ bool Grille::test_placement(int i, int j, int couleur){
 	}
 	// Condition lointaine de pions de meme couleur à coder
 	bool cond = false;
-	for(int k =0; k<3; k++){
+	for(int k =0; k<8; k++){
         int l = 1;
         while(get(taille*i + j + l*direction[k]).getcouleur() == 1-couleur){
 			l++;
@@ -119,7 +141,7 @@ Grille Grille::ajout_pion(int i, int j, int couleur){
 		g.set(table[a], a);
 	}
 	if(test_placement(i,j,couleur)){
-		for(int k =0; k<3; k++){
+		for(int k =0; k<8; k++){
             int l = 1;
             while(get(taille*i + j + l*direction[k]).getcouleur() == 1-couleur){
 				l++;
