@@ -1,5 +1,7 @@
 #include <vector>
 #include <utility>
+#include <algorithm>
+#include <iostream>
 
 using namespace std;
 
@@ -48,7 +50,8 @@ public:
   Grille ajout_pion(int i, int j, int couleur);
   vector<Grille> coups_possibles(int couleur);
   int score(bool joueur);
-  int minmax (int profondeur, int alpha, int beta, bool joueur, bool etat_maxmin);
+  int minmax (int profondeur, int alpha, int beta, bool joueur);
+  void affiche();
 
   // Fonction globale qui renvoie la grille finale
 

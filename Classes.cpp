@@ -28,12 +28,12 @@ Grille::Grille(){
     direction[2] = taille;
     direction[3] = -taille;
     table = new Pion [(taille+2)*(taille+2)];
-	// On place les pions blancs de départ
-	ajout_pion(4,4,0);
-	ajout_pion(5,5,0);
+    // On place les pions blancs de départ
+    set(Pion(0),4,4);
+    set(Pion(0),5,5);
 	// On place les pions noirs de départ
-	ajout_pion(4,5,1);
-	ajout_pion(5,4,1);
+    set(Pion(1),4,5);
+    set(Pion(1),5,4);
 }
 
 Grille::Grille(int t){
@@ -153,46 +153,56 @@ vector<Grille> Grille::coups_possibles(int couleur){
 int Grille::minmax (int profondeur,
 					int alpha,
 					int beta,
-					bool joueur,
-					bool etat_maxim){
-	if (profondeur = 0){
-		return score(joueur);
+                    bool joueur){
+    if (profondeur == 0){
+        return score(joueur);
 	}
-	if (etat_maxim){
-		int v = -300000:
+    if (joueur){
+        int v = -300000;
 		vector<Grille> liste_coups = coups_possibles(joueur);
 		if(liste_coups.size() == 0){
-			"le meme joueur rejoue"
+            //le meme joueur rejoue
 			// A voir
-			minmax(profondeur-1, grille plateaunouveau, alpha, beta, joueur, etat_maxim);
+            minmax(profondeur-1, alpha, beta, !joueur);
 		}
 		else{
 			for(int i = 0; i < liste_coups.size(); i ++){
-	            v := max(v, liste_coups[i].alphabeta(profondeur - 1, alpha, beta, !joueur, !etat_maxim))
-            	alpha := max(alpha, v)
+                v = max(v, liste_coups[i].minmax(profondeur - 1, alpha, beta, !joueur));
+                alpha = max(alpha, v);
 				if(beta <= alpha){
 					break;
 				}
 			}
 			return v;
 		}
-	}
-	else{
-		int v = 300000:
+    } else {
+        int v = 300000;
 		vector<Grille> liste_coups = coups_possibles(joueur);
 		if(liste_coups.size() == 0){
-			"le meme joueur rejoue"
+            //"le meme joueur rejoue"
 			// A voir
-			minmax(profondeur-1, grille plateaunouveau, alpha, beta, joueur, etat_maxim);
+            minmax(profondeur - 1, alpha, beta, !joueur);
 		}
 		else{
 			for(int i = 0; i < liste_coups.size(); i ++){
-	            v := min(v, liste_coups[i].alphabeta(profondeur - 1, alpha, beta, !joueur, !etat_maxim))
-            	alpha := min(beta, v)
+                v = min(v, liste_coups[i].minmax(profondeur - 1, alpha, beta, !joueur));
+                alpha = min(beta, v);
 				if(beta <= alpha){
 					break;
 				}
 			}
 			return v;
-	}
+        }
+    }
+
+    return 0;
+}
+
+void Grille::affiche() {
+    for (int i=0; i<taille+2; i++) {
+        for (int j=0; j<taille+2; j++) {
+            cout<<get(i,j).getcouleur()<<" ";
+        }
+        cout<<endl;
+    }
 }
