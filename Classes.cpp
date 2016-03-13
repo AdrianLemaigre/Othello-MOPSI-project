@@ -50,10 +50,22 @@ Grille::Grille(int t){
 Grille::Grille(const Grille& g) {
     taille = g.taille;
     table = new Pion [taille*taille];
+    direction[0] = 1;
+    direction[1] = -1;
+    direction[2] = taille;
+    direction[3] = -taille;
+    direction[4] = 1 + taille;
+    direction[5] = 1 -taille;
+    direction[6] = -1 +taille;
+    direction[7] = -1 -taille;
+
+    for (int i = 0; i<taille*taille; i++) {
+        table[i] = g.table[i];
+    }
 }
 
 Grille::~Grille(){
-    //delete[] table;
+    delete[] table;
 }
 
 void Grille::settaille(int t){
