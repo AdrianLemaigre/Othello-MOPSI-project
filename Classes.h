@@ -61,7 +61,4 @@ private:
 //Paramètres
 // Taille du tableau
 const int taille_othello = 8;
-// Table des points de la grille
-extern int table_point[10][10];
-void init_table_point();
 

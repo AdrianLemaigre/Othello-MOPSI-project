@@ -38,3 +38,6 @@ algo minmax (int profondeur, grille plateau, int alpha, int beta, bool joueur, b
 		}
 	}
 }
+
+Fonction de scoring = - patterns
+- bataille pour la mobilité (20 premier coups)
