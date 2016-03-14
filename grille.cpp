@@ -1,25 +1,5 @@
-#include "Classes.h"
+#include "grille.h"
 
-// Classe Pion
-
-Pion::Pion(){
-	couleur = -1;
-}
-
-Pion::Pion(int clr){
-	couleur = clr;
-}
-
-void Pion::setcouleur(int y){
-	couleur = y;
-}
-
-int Pion::getcouleur() const{
-	return couleur;
-}
-
-
-//Classe Grille
 
 Grille::Grille(int t){
     taille = t+2;

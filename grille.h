@@ -1,8 +1,12 @@
+#ifndef CLASSE_H
+#define CLASSE_H
+
 #include <vector>
 #include <utility>
 #include <algorithm>
 #include <iostream>
-#include "Strategie.h"
+#include "strategie.h"
+#include "pion.h"
 
 using namespace std;
 
@@ -10,28 +14,6 @@ using namespace std;
 // Taille du tableau
 const int taille_othello = 8;
 
-// Classes
-// Classe Pion
-
-class Pion
-{
-public:
-    // Constructeurs
-    Pion();
-    Pion(int clr);
-
-    //Accesseurs et mutateurs
-    void setcouleur(int y);
-    int getcouleur() const;
-
-    // Autres méthodes
-
-
-private:
-    int couleur;
-};
-
-// Classe de la grille
 class Grille
 {
 public:
@@ -69,3 +51,4 @@ private:
     int direction[8];
 };
 
+#endif

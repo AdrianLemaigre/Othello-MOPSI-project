@@ -1,7 +1,7 @@
 #ifndef JEU_H
 #define JEU_H
 
-#include "Classes.h"
+#include "grille.h"
 #include "machine.h"
 
 class Jeu {
@@ -18,4 +18,4 @@ public:
 
 };
 
-#endif // JEU_H
+#endif

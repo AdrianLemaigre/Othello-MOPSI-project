@@ -1,7 +1,6 @@
 #ifndef MACHINE_H
 #define MACHINE_H
 
-#include <tuple>
 #include <vector>
 
 class Machine
@@ -32,4 +31,4 @@ public:
 
 };
 
-#endif // MACHINE_H
+#endif
