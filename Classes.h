@@ -58,8 +58,7 @@ public:
   int score_pos(bool joueur);
   int score_mob(bool joueur);
   int score_nb(bool joueur);
-  int minmax (int profondeur, int alpha, int beta, bool joueur, bool cible);
-
+  int minmax (int profondeur, int alpha, int beta, bool joueur, bool cible, int coupsRestants);
   void affiche();
 
   // Fonction globale qui renvoie la grille finale

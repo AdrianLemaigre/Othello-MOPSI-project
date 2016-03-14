@@ -133,25 +133,21 @@ Grille Grille::ajout_pion(int i, int j, int couleur){
     for(int a = 0; a < g.taille*g.taille; a++){
 		g.set(table[a], a);
 	}
-	if(test_placement(i,j,couleur)){
-        g.set(Pion(couleur),i,j);
+    g.set(Pion(couleur),i,j);
 
-		for(int k =0; k<8; k++){
-            int l = 1;
-            while(get(taille*i + j + l*direction[k]).getcouleur() == 1-couleur){
-				l++;
-			}
-            if(get(taille*i + j + l*direction[k]).getcouleur() == couleur){
-                Pion p = Pion(couleur);
-                for (int m = 1; m<l; m++){
-                    g.set(p,taille*i + j + m*direction[k]);
-                }
+    for(int k =0; k<8; k++){
+        int l = 1;
+        while(get(taille*i + j + l*direction[k]).getcouleur() == 1-couleur){
+            l++;
+        }
+        if(get(taille*i + j + l*direction[k]).getcouleur() == couleur){
+            Pion p = Pion(couleur);
+            for (int m = 1; m<l; m++){
+                g.set(p,taille*i + j + m*direction[k]);
             }
-		}
-	}
-	else{
-        throw std::logic_error("On doit placer correctement le pion pour modifier le jeu");
-	}
+        }
+    }
+
 	return g;
 }
 
@@ -245,9 +241,10 @@ int Grille::minmax (int profondeur,
 					int alpha,
 					int beta,
                     bool joueur,
-                    bool cible){
+                    bool cible,
+                    int coupsRestants){
 
-    if (profondeur == 0){
+    if (profondeur == 0 || coupsRestants == 0){
         return score(cible);
 	}
     if (joueur == cible){
@@ -255,12 +252,11 @@ int Grille::minmax (int profondeur,
 		vector<Grille> liste_coups = coups_possibles(joueur);
 		if(liste_coups.size() == 0){
             //le meme joueur rejoue
-			// A voir
-            return minmax(profondeur-1, alpha, beta, !joueur, cible);
+            return minmax(profondeur-1, alpha, beta, !joueur, cible, coupsRestants-1);
 		}
 		else{
 			for(int i = 0; i < liste_coups.size(); i ++){
-                v = max(v, liste_coups[i].minmax(profondeur - 1, alpha, beta, !joueur, cible));
+                v = max(v, liste_coups[i].minmax(profondeur - 1, alpha, beta, !joueur, cible,coupsRestants-1));
                 alpha = max(alpha, v);
 				if(beta <= alpha){
 					break;
@@ -275,11 +271,11 @@ int Grille::minmax (int profondeur,
 		if(liste_coups.size() == 0){
             //"le meme joueur rejoue"
 			// A voir
-            return minmax(profondeur - 1, alpha, beta, !joueur, cible);
+            return minmax(profondeur - 1, alpha, beta, !joueur, cible, coupsRestants-1);
 		}
 		else{
 			for(int i = 0; i < liste_coups.size(); i ++){
-                v = min(v, liste_coups[i].minmax(profondeur - 1, alpha, beta, !joueur, cible));
+                v = min(v, liste_coups[i].minmax(profondeur - 1, alpha, beta, !joueur, cible, coupsRestants-1));
                 alpha = min(beta, v);
 				if(beta <= alpha){
 					break;

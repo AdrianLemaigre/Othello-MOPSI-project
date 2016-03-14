@@ -5,7 +5,7 @@ int main(){
 
     Grille jeu;
 
-    cout<<jeu.minmax(2,-30000,30000,true, true)<<endl;
+    cout<<jeu.minmax(7,-30000,30000,true, true,64)<<endl;
 
     return 0;
 }
