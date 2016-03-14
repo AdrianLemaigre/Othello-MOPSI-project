@@ -102,18 +102,7 @@ bool Grille::test_placement(int i, int j, int couleur){
         return false;
     }
 
-    //On regarde s'il y a une case adverse à proximité
     bool cond = false;
-    for(int k =0; k<8; k++){
-        if(get(taille*i + j + direction[k]).getcouleur() == 1 - couleur){
-            cond = true;
-        }
-    }
-    if (!cond)
-        return false;
-
-	// Condition lointaine de pions de meme couleur à coder
-    cond = false;
 	for(int k =0; k<8; k++){
         int l = 1;
         while(get(taille*i + j + l*direction[k]).getcouleur() == 1-couleur){

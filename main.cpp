@@ -2,7 +2,7 @@
 
 int main(){
     init_table_point();
-    init_coefs(0,0,1.);
+    init_coefs(1,1,1);
 
     Grille jeu;
 
