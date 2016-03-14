@@ -112,8 +112,6 @@ bool Grille::test_placement(int i, int j, int couleur){
     if (!cond)
         return false;
 
-    //cout<<"tjrs là ?"<<endl;
-
 	// Condition lointaine de pions de meme couleur à coder
     cond = false;
 	for(int k =0; k<8; k++){
@@ -165,7 +163,7 @@ vector<Grille> Grille::coups_possibles(int couleur){
 }
 
 int Grille::score(bool joueur){
-	return int(coeff_pos*score_pos(joueur) + coeff_mob*score_mob(joueur) + coef_nb*score_nb(joueur));
+    return int(coef_pos*score_pos(joueur) + coef_mob*score_mob(joueur) + coef_nb*score_nb(joueur));
 }
 
 int Grille::score_pos(bool joueur){
@@ -183,58 +181,44 @@ int Grille::score_pos(bool joueur){
 }
 
 int Grille::score_mob(bool joueur){
-	int compteur = 0
-	for(int i = 0; i < taille; i++){
-		for(int j = 0; j < taille; j++){
-			cond = true
-			if (i > taille || i < 1 || j > taille || j < 1){
-				// On regarse si le placement est hors limites
-				cond = false;
-			}
+    int compteur = 0;
+    for(int i = 0; i < taille-1; i++){
+        for(int j = 0; j < taille-1; j++){
 		    if (get(i,j).getcouleur() != -1) {
 				// On regarde si la case est déja occupée
-		        cond = false;
-		    }
-
-		    //On regarde s'il y a une case adverse à proximité
-		    for(int k =0; k<8; k++){
-		        if(get(taille*i + j + direction[k]).getcouleur() == couleurAdverse){
-		            cond = true;
-		        }
-		    }
-		    if (!cond)
-		        return false;
+                continue;
+            }
 
 			// Condition lointaine de pions de meme couleur à coder
-		    cond2 = false;
+            bool cond = false;
 			for(int k =0; k<8; k++){
 		        int l = 1;
-		        while(get(taille*i + j + l*direction[k]).getcouleur() == 1-couleur){
+                while(get(taille*i + j + l*direction[k]).getcouleur() == 1 - joueur){
 					l++;
 				}
-		        if (get(taille*i + j + l*direction[k]).getcouleur() == couleur && l>1){
-					cond2 = true;
+                if (get(taille*i + j + l*direction[k]).getcouleur() == joueur && l>1){
+                    cond = true;
+                    break;
 				}
 			}
-		    if (cond && cond2){
+            if (cond){
 		    	compteur += 1;
 		    }
 		}
 	}
+    return compteur;
 }
 
 int Grille::score_nb(bool joueur){
     int score = 0;
-    for(int i = 1; i <= taille; i++){
-        for(int j = 1; j <= taille; j++){
+    for(int i = 1; i < taille; i++){
+        for(int j = 1; j < taille; j++){
             if(get(i,j).getcouleur() == joueur){
                 score += 1;
             }
         }
     }
     return score;
-}
-
 }
 
 int Grille::minmax (int profondeur,

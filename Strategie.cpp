@@ -3,6 +3,10 @@
 // joueur vaut 0 pour blan et 1 pour noir
 // Cette fonction renvoie la valeurd'une grille pour un joueur
 
+float coef_pos;
+float coef_mob;
+float coef_nb;
+
 int table_point[10][10];
 
 void init_table_point(){
@@ -22,7 +26,7 @@ void init_table_point(){
 }
 
 void init_coefs(float pos, float mob, float nb){
-    coeff_pos = pos;
-    coeff_mob = mob;
+    coef_pos = pos;
+    coef_mob = mob;
     coef_nb = nb;
 }
