@@ -151,7 +151,7 @@ vector<Grille> Grille::coups_possibles(int couleur){
 	return liste_coups;
 }
 
-int Grille::score(bool joueur){
+int Grille::score(bool joueur, float coef_pos, float coef_mob, float coef_nb){
     return int(coef_pos*score_pos(joueur) + coef_mob*score_mob(joueur) + coef_nb*score_nb(joueur));
 }
 
@@ -215,21 +215,24 @@ int Grille::minmax (int profondeur,
 					int beta,
                     bool joueur,
                     bool cible,
-                    int coupsRestants){
+                    int coupsRestants,
+                    float coef_pos,
+                    float coef_mob,
+                    float coef_nb){
 
     if (profondeur == 0 || coupsRestants == 0){
-        return score(cible);
+        return score(cible, coef_pos, coef_mob, coef_nb);
 	}
     if (joueur == cible){
         int v = -300000;
 		vector<Grille> liste_coups = coups_possibles(joueur);
 		if(liste_coups.size() == 0){
             //le meme joueur rejoue
-            return minmax(profondeur-1, alpha, beta, !joueur, cible, coupsRestants-1);
+            return minmax(profondeur-1, alpha, beta, !joueur, cible, coupsRestants-1, coef_pos, coef_mob, coef_nb);
 		}
 		else{
 			for(int i = 0; i < liste_coups.size(); i ++){
-                v = max(v, liste_coups[i].minmax(profondeur - 1, alpha, beta, !joueur, cible,coupsRestants-1));
+                v = max(v, liste_coups[i].minmax(profondeur - 1, alpha, beta, !joueur, cible,coupsRestants-1, coef_pos, coef_mob, coef_nb));
                 alpha = max(alpha, v);
 				if(beta <= alpha){
 					break;
@@ -244,11 +247,11 @@ int Grille::minmax (int profondeur,
 		if(liste_coups.size() == 0){
             //"le meme joueur rejoue"
 			// A voir
-            return minmax(profondeur - 1, alpha, beta, !joueur, cible, coupsRestants-1);
+            return minmax(profondeur - 1, alpha, beta, !joueur, cible, coupsRestants-1, coef_pos, coef_mob, coef_nb);
 		}
 		else{
 			for(int i = 0; i < liste_coups.size(); i ++){
-                v = min(v, liste_coups[i].minmax(profondeur - 1, alpha, beta, !joueur, cible, coupsRestants-1));
+                v = min(v, liste_coups[i].minmax(profondeur - 1, alpha, beta, !joueur, cible, coupsRestants-1, coef_pos, coef_mob, coef_nb));
                 alpha = min(beta, v);
 				if(beta <= alpha){
 					break;
