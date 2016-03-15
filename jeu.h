@@ -12,11 +12,13 @@ private:
     Grille world;
 
 public:
-    Jeu(float c11, float c12, float c13, float c21, float c22, float c23);
+    Jeu();
+    Jeu(Machine j1, Machine j2);
     Jeu(const Jeu &j);
     ~Jeu();
 
-    void vsHumain(bool tourHumain, int coupsRestants);
+    void vsHumain(bool tourHumain, int coupsRestants, int coupsPasses);
+    int gagne();
 
 };
 

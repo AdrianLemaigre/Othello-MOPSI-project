@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <time.h>
+#include <stdlib.h>
 
 class Machine
 {

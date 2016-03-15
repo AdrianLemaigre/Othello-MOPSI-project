@@ -1,12 +1,12 @@
 #include "jeu.h"
 
-Jeu::Jeu(float c11, float c12, float c13, float c21, float c22, float c23) {
-    joueur1.setCoefPos(c11);
-    joueur1.setCoefMob(c12);
-    joueur1.setCoefNb(c13);
-    joueur2.setCoefPos(c21);
-    joueur2.setCoefMob(c22);
-    joueur2.setCoefNb(c23);
+Jeu::Jeu() {
+
+}
+
+Jeu::Jeu(Machine j1, Machine j2) {
+    joueur1 = j1;
+    joueur2 = j2;
 }
 
 Jeu::Jeu(const Jeu &j) {
@@ -20,7 +20,7 @@ Jeu::~Jeu() {
 }
 
 // L'humain joue les 1, qu'il commence ou non
-void Jeu::vsHumain(bool tourHumain, int coupsRestants) {
+void Jeu::vsHumain(bool tourHumain, int coupsRestants, int coupsPasses) {
     if (coupsRestants == 0) {
         return;
     }
@@ -48,10 +48,42 @@ void Jeu::vsHumain(bool tourHumain, int coupsRestants) {
         Grille tmp = world.ajout_pion(posx, posy, 1);
 
         world = tmp;
-        vsHumain(false, coupsRestants-1);
+        vsHumain(false, coupsRestants-1, coupsPasses+1);
     } else {
         std::cout<<"Machine joue"<<endl;
 
+        vector<Grille> coupsPossibles = world.coups_possibles(0);
+        Grille meilleur;
+        int meilleurScore = -30000;
 
+        for (int i = 0; i < coupsPossibles.size(); i++) {
+            int mm = world.minmax(5, -30000, 30000, false, false, coupsRestants,
+                                   joueur2.getCoefPos(coupsPasses),
+                                   joueur2.getCoefMob(coupsPasses),
+                                   joueur2.getCoefNb(coupsPasses));
+            if (meilleurScore < mm) {
+                meilleur = coupsPossibles[i];
+                meilleurScore = mm;
+            }
+        }
+        world = meilleur;
+        vsHumain(true, coupsRestants-1,coupsPasses+1);
     }
+}
+
+int Jeu::gagne() {
+    int score0 = 0;
+    int score1 = 0;
+
+    for (int i = 0; i < world.gettaille()*world.gettaille(); i++) {
+        if (world.get(i).getcouleur() == 0)
+            score0++;
+        else if (world.get(i).getcouleur() == 1)
+            score1++;
+    }
+
+    if (score0 > score1)
+        return 0;
+    else
+        return 1;
 }

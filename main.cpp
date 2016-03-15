@@ -3,9 +3,11 @@
 int main(){
     init_table_point();
 
-    Jeu game(1,0,0,1,1,1);
+    Jeu game;
 
-    game.vsHumain(true, 64);
+    game.vsHumain(true, 64, 0);
+
+    cout<<game.gagne()<<" a gagné !"<<endl;
 
     return 0;
 }
