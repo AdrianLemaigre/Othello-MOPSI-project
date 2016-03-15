@@ -1,44 +1,16 @@
 #include "machine.h"
 
-Machine::Machine(float coef1, float coef2, float coef3)
+Machine::Machine(float min, float max, int nbCoefs) {
+    srand(time(NULL));
+
+
+}
+
+Machine::Machine(std::vector<float> coef1, std::vector<float> coef2, std::vector<float> coef3)
 {
-    coef_pos = coef1;
-    coef_mob = coef2;
-    coef_nb = coef3;
-}
-
-void Machine::setCoefPos(float coef) {
-    coef_pos = coef;
-}
-
-float Machine::getCoefPos() {
-    return coef_pos;
-}
-
-void Machine::setCoefMob(float coef) {
-    coef_mob = coef;
-}
-
-float Machine::getCoefMob() {
-    return coef_mob;
-}
-
-void Machine::setCoefNb(float coef) {
-    coef_nb = coef;
-}
-
-float Machine::getCoefNb() {
-    return coef_nb;
-}
-
-void Machine::setNewCoefs(float coef1, float coef2, float coef3) {
-    coefPosList.push_back(coef_pos);
-    coefMobList.push_back(coef_mob);
-    coefNbList.push_back(coef_nb);
-
-    coef_pos = coef1;
-    coef_mob = coef2;
-    coef_nb = coef3;
+    coefPosList = coef1;
+    coefMobList = coef2;
+    coefNbList = coef3;
 }
 
 int Machine::getSize() {
@@ -56,3 +28,23 @@ std::vector<float> Machine::getCoefMobList() {
 std::vector<float> Machine::getCoefNbList() {
     return coefNbList;
 }
+
+void Machine::addCoefs(float coef1, float coef2, float coef3) {
+    coefPosList.push_back(coef1);
+    coefMobList.push_back(coef2);
+    coefNbList.push_back(coef3);
+}
+
+float Machine::getCoefPos(int i) {
+    return coefPosList[i];
+}
+
+float Machine::getCoefMob(int i) {
+    return coefMobList[i];
+}
+
+
+float Machine::getCoefNb(int i) {
+    return coefNbList[i];
+}
+

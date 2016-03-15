@@ -2,32 +2,27 @@
 #define MACHINE_H
 
 #include <vector>
+#include <time.h>
 
 class Machine
 {
 private:
-    float coef_pos;
-    float coef_mob;
-    float coef_nb;
     std::vector<float> coefPosList;
     std::vector<float> coefMobList;
     std::vector<float> coefNbList;
 
 public:
-    Machine(float coef1 = 1, float coef2 = 1, float coef3 = 1);
+    Machine(float min = -1, float max = 1, int nbCoefs = 64);
+    Machine(std::vector<float> coef1, std::vector<float> coef2, std::vector<float> coef3);
 
-    void setCoefPos(float coef);
-    float getCoefPos();
-    void setCoefMob(float coef);
-    float getCoefMob();
-    void setCoefNb(float coef);
-    float getCoefNb();
-
-    void setNewCoefs(float coef1, float coef2, float coef3);
     int getSize();
     std::vector<float> getCoefPosList();
     std::vector<float> getCoefMobList();
     std::vector<float> getCoefNbList();
+    void addCoefs(float coef1, float coef2, float coef3);
+    float getCoefPos(int i);
+    float getCoefMob(int i);
+    float getCoefNb(int i);
 
 };
 

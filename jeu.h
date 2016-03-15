@@ -16,6 +16,8 @@ public:
     Jeu(const Jeu &j);
     ~Jeu();
 
+    void vsHumain(bool tourHumain, int coupsRestants);
+
 };
 
 #endif

@@ -96,10 +96,7 @@ bool Grille::test_placement(int i, int j, int couleur){
 }
 
 Grille Grille::ajout_pion(int i, int j, int couleur){
-    Grille g(taille-2);
-    for(int a = 0; a < g.taille*g.taille; a++){
-		g.set(table[a], a);
-	}
+    Grille g = *this;
     g.set(Pion(couleur),i,j);
 
     for(int k =0; k<8; k++){

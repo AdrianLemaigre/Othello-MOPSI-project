@@ -43,8 +43,6 @@ public:
     int minmax (int profondeur, int alpha, int beta, bool joueur, bool cible, int coupsRestants,float coef_pos, float coef_mob, float coef_nb);
     void affiche();
 
-    // Fonction globale qui renvoie la grille finale
-
 private:
     int taille;
     Pion* table;
