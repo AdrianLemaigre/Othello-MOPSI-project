@@ -71,6 +71,52 @@ void Jeu::vsHumain(bool tourHumain, int coupsRestants, int coupsPasses) {
     }
 }
 
+void Jeu::vsMachine(bool tourMachine1 int coupsRestants, int coupsPasses) {
+    if (coupsRestants == 0) {
+        return;
+    }
+
+    if (tourMachine1) {
+        std::cout<<"Machine 1 joue"<<endl;
+
+        vector<Grille> coupsPossibles1 = world.coups_possibles(0);
+        Grille meilleur1;
+        int meilleurScore1 = -30000;
+
+        for (int i = 0; i < coupsPossibles1.size(); i++) {
+            int mm1 = world.minmax(5, -30000, 30000, false, false, coupsRestants,
+                                   joueur1.getCoefPos(coupsPasses),
+                                   joueur1.getCoefMob(coupsPasses),
+                                   joueur1.getCoefNb(coupsPasses));
+            if (meilleurScore1 < mm1) {
+                meilleur1 = coupsPossibles1[i];
+                meilleurScore1 = mm1;
+            }
+        }
+        world = meilleur1;
+        vsMachine(false, coupsRestants-1,coupsPasses+1);
+    } else {
+        std::cout<<"Machine 2 joue"<<endl;
+
+        vector<Grille> coupsPossibles2 = world.coups_possibles(0);
+        Grille meilleur2;
+        int meilleurScore2 = -30000;
+
+        for (int i = 0; i < coupsPossibles2.size(); i++) {
+            int mm2 = world.minmax(5, -30000, 30000, false, false, coupsRestants,
+                                   joueur2.getCoefPos(coupsPasses),
+                                   joueur2.getCoefMob(coupsPasses),
+                                   joueur2.getCoefNb(coupsPasses));
+            if (meilleurScore2 < mm2) {
+                meilleur2 = coupsPossibles2[i];
+                meilleurScore2 = mm2;
+            }
+        }
+        world = meilleur2;
+        vsmachine(true, coupsRestants-1,coupsPasses+1);
+    }
+}
+
 int Jeu::gagne() {
     int score0 = 0;
     int score1 = 0;
