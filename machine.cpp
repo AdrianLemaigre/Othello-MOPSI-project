@@ -3,7 +3,14 @@
 Machine::Machine(float min, float max, int nbCoefs) {
     srand(time(NULL));
 
+    float a = max - min;
 
+    for (int i = 0; i<nbCoefs; i++) {
+        float coef1 = ((float)rand()/(float)(RAND_MAX)) * a + min;
+        float coef2 = ((float)rand()/(float)(RAND_MAX)) * a + min;
+        float coef3 = ((float)rand()/(float)(RAND_MAX)) * a + min;
+        addCoefs(coef1, coef2, coef3);
+    }
 }
 
 Machine::Machine(std::vector<float> coef1, std::vector<float> coef2, std::vector<float> coef3)
