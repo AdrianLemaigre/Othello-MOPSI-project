@@ -1,5 +1,9 @@
 #include "genetique.h"
 
+vector <Machine> initialise(){
+
+}
+
 pair< vector<Machine>, vector<float> > selection(vector<Machine> echantillon_mere){
 	vector<int> victoires;
 	for(int k = 0; k < echantillon_fille.size(); k++){
@@ -7,12 +11,15 @@ pair< vector<Machine>, vector<float> > selection(vector<Machine> echantillon_mer
 	}
 	for(int i = 0; i < echantillon_fille.size(); i++){
 		for(int j = 0; j < echantillon_fille.size(); j ++){
-			// Faire jouer les machines les unes contre les autres
-			if(/* machine i gagne*/){
-				victoires[i] += 1;
-			}
-			else{
-				victoires[j] += 1;
+			if(i != j){
+				Jeu partie = Jeu(echantillon_fille[i], echantillon_fille[j]);
+				// Verifier si  c'est la bonne machine qui gagne
+				if(partie.gagne()){
+					victoires[i] += 1;
+				}
+				else{
+					victoires[j] += 1;
+				}
 			}
 		}
 	}

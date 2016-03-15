@@ -71,6 +71,7 @@ void Jeu::vsHumain(bool tourHumain, int coupsRestants, int coupsPasses) {
     }
 }
 
+// A verifier
 void Jeu::vsMachine(bool tourMachine1 int coupsRestants, int coupsPasses) {
     if (coupsRestants == 0) {
         return;

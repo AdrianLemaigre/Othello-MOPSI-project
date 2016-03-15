@@ -4,6 +4,8 @@
 #include "jeu.h"
 #include <cstdlib>
 
+vector <Machine> initialise();
+
 pair< vector<Machine>, vector<float> > selection();
 // On renvoie le classement (sous forme des probabilité)
 // des machines de la génération
