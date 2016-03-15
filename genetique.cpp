@@ -33,13 +33,28 @@ pair< vector<Machine>, vector<float> > selection(vector<Machine> echantillon_mer
 vector<Machine> croisement(pair<vector<Machine>, vector<float> >){
 
 }
-// On crée les nouveaux coefficients
 
-vector<Machine> mutation(vector<machine>){
-
+vector<Machine> mutation(vector<machine> generation_fille){
+	vector<machine> generation_fille2 = generation_fille;
+	for (int i = 0; i < generation_fille.size(); i++){
+		for (int k = 0; k < 64;k ++){
+			float mutantPos = ((float)rand()/(float)(RAND_MAX));
+  			float mutantMob = ((float)rand()/(float)(RAND_MAX));
+    		float mutantNb = ((float)rand()/(float)(RAND_MAX));
+    		generation_fille2[i].setCoefPos(k, mutantPos);
+    		generation_fille2[i].setCoefMob(k, mutantMob);
+    		generation_fille2[i].setCoefNb(k, mutantNb);
+		}
+	}
+	return generation_fille2;
 }
-// On ajoute de l'aléa dans le processus avec une probabilité donnée
 
-vector<Machine> generation(vector<Machine>){
-
+vector<Machine> generation(vector<Machine> generation_mere){
+	pair< vector<Machine>, vector<float> > creation = selection(vector<Machine> echantillon_mere);
+	vector<Machine> generation_fille = croisement(creation);
+	int prob = rand()%500;
+	if (prob == 1){
+		generation_fille = mutation(generation_fille);
+	}
+	return generation_fille;
 }

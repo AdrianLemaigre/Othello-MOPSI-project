@@ -2,6 +2,7 @@
 #define GENETIQUE_H
 
 #include "jeu.h"
+#include <cstdlib>
 
 pair< vector<Machine>, vector<float> > selection();
 // On renvoie le classement (sous forme des probabilité)

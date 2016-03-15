@@ -24,6 +24,9 @@ public:
     float getCoefPos(int i);
     float getCoefMob(int i);
     float getCoefNb(int i);
+    float setCoefPos(int i, float coef);
+    float setCoefMob(int i, float coef);
+    float setCoefNb(int i, float coef);
 
 };
 
