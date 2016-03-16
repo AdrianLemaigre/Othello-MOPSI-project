@@ -71,3 +71,20 @@ void Machine::setCoefNb(int i, float coef){
     coefNbList[i] = coef;
 }
 
+void Machine::afficheCoefs(){
+    cout << "Position:" << endl;
+    for(int i = 0; i < coefPosList.size(); i++){
+     cout << " coef " << i << " " << coefPosList[i] << "     ";
+    }
+    cout << endl;
+    cout << "Mobilite:" << endl;
+    for(int i = 0; i < coefMobList.size(); i++){
+        cout << " coef " << i << " " << coefMobList[i] << "     ";
+    }
+    cout << endl;
+    cout << "Nombre:" << endl;
+    for(int i = 0; i < coefNbList.size(); i++){
+        cout << " coef " << i << " " << coefNbList[i] << "     ";
+    }
+    cout << endl;
+}

@@ -30,6 +30,7 @@ public:
     void setCoefPos(int i, float coef);
     void setCoefMob(int i, float coef);
     void setCoefNb(int i, float coef);
+    void afficheCoefs();
 
 };
 
