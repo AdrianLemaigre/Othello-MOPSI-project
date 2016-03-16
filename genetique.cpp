@@ -132,13 +132,11 @@ vector<Machine> mutation(vector<Machine> generation_fille){
 }
 
 vector<Machine> generation(vector<Machine> generation_mere) {
-    afficheVec(generation_mere);
     vector<pair<Machine, float> > creation = selection(generation_mere);
     afficheCouple(creation);
     vector<pair<Machine, float> > randomCreation = randomMachines(creation);
     afficheCouple(randomCreation);
     vector<Machine> generation_fille = croisement(randomCreation);
-    afficheVec(generation_fille);
 	int prob = rand()%500;
     if (prob == 0){
 		generation_fille = mutation(generation_fille);

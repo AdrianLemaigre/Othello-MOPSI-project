@@ -5,6 +5,7 @@
 #include <time.h>
 #include <stdlib.h>
 #include <iostream>
+#include <fstream>
 
 class Machine
 {
@@ -31,6 +32,7 @@ public:
     void setCoefMob(int i, float coef);
     void setCoefNb(int i, float coef);
     void afficheCoefs();
+    void ecritCoefs(std::ofstream& file);
 
 };
 

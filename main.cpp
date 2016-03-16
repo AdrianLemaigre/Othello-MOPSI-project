@@ -5,12 +5,18 @@ int main(){
     srand(time(NULL));
 
     vector<Machine> m = initialise(10);
+    ofstream myfile;
+    myfile.open ("coefs.txt");
+    m[0].ecritCoefs(myfile);
 
-    for (int i=0; i<100; i++) {
+    while (true) {
         m = generation(m);
         Machine premiere = m[0];
-        premiere.afficheCoefs;
+        premiere.afficheCoefs();
+        premiere.ecritCoefs(myfile);
     }
+
+    myfile.close();
 
     return 0;
 }
