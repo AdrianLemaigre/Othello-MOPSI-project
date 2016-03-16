@@ -236,7 +236,6 @@ int Grille::minmax (int profondeur,
 		vector<Grille> liste_coups = coups_possibles(joueur);
 		if(liste_coups.size() == 0){
             //"le meme joueur rejoue"
-			// A voir
             return minmax(profondeur - 1, alpha, beta, !joueur, cible, coupsRestants-1, coef_pos, coef_mob, coef_nb);
 		}
 		else{

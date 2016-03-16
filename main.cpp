@@ -4,17 +4,8 @@ int main(){
     init_table_point();
     srand(time(NULL));
 
-    vector<Machine> m;
-
-    for (int i = 0; i < 10; i++) {
-        m.push_back(Machine());
-    }
-
-    vector<pair<Machine, float> > p = selection(m);
-
-    for (int i=0; i<p.size(); i++) {
-        cout<<"Proba : "<<p[i].second<<endl;
-    }
+    vector<Machine> m = initialise(10);
+    vector<Machine> m2 = generation(m);
 
     return 0;
 }
