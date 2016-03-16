@@ -64,15 +64,15 @@ vector<Machine> croisement(vector<pair<Machine, float> > couples) {
         float probaPere;
 
         if (i != couples.size()-1) {
-            Machine mere = couples[i].first;
-            Machine pere = couples[i+1].second;
-            float probaMere = couples[i].second;
-            float probaPere = couples[i+1].second;
+            mere = couples[i].first;
+            pere = couples[i+1].second;
+            probaMere = couples[i].second;
+            probaPere = couples[i+1].second;
         } else {
-            Machine mere = couples[i].first;
-            Machine pere = couples[0].second;
-            float probaMere = couples[i].second;
-            float probaPere = couples[0].second;
+            mere = couples[i].first;
+            pere = couples[0].second;
+            probaMere = couples[i].second;
+            probaPere = couples[0].second;
         }
 
         vector<float> coef1;
