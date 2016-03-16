@@ -24,6 +24,9 @@ public:
     // Destructeur
     ~Grille();
 
+    // Opérateurs
+    Grille& operator=(Grille g);
+
     //Accesseurs et mutateurs
     void settaille(int t);
     int gettaille() const;

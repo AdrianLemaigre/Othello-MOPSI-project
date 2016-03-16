@@ -18,8 +18,9 @@ public:
     ~Jeu();
 
     void vsHumain(bool tourHumain, int coupsRestants, int coupsPasses);
-    void vsMachine(bool tourMachine1 int coupsRestants, int coupsPasses);
+    void vsMachine(bool tourMachine1, int coupsRestants, int coupsPasses);
     int gagne();
+    void clear();
 
 };
 

@@ -55,15 +55,15 @@ float Machine::getCoefNb(int i) {
     return coefNbList[i];
 }
 
-float Machine::setCoefPos(int i, float coef){
+void Machine::setCoefPos(int i, float coef){
     coefPosList[i] = coef;
 }
 
-float Machine::setCoefMob(int i, float coef){
+void Machine::setCoefMob(int i, float coef){
     coefMobList[i] = coef;
 }
 
-float Machine::setCoefNb(int i, float coef){
+void Machine::setCoefNb(int i, float coef){
     coefNbList[i] = coef;
 }
 

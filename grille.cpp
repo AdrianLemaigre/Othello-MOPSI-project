@@ -48,6 +48,19 @@ Grille::~Grille(){
     delete[] table;
 }
 
+Grille& Grille::operator=(Grille g) {
+    taille = g.taille;
+    delete[] table;
+
+    table = new Pion[taille*taille];
+
+    for (int i = 0; i < taille*taille; i++) {
+        table[i] = g.table[i];
+    }
+
+    return *this;
+}
+
 void Grille::settaille(int t){
 	taille = t;
 }
