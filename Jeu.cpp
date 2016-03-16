@@ -81,7 +81,7 @@ void Jeu::vsMachine(bool tourMachine1, int coupsRestants, int coupsPasses) {
             int meilleurScore1 = -30000;
 
             for (int i = 0; i < coupsPossibles1.size(); i++) {
-                int mm1 = coupsPossibles1[i].minmax(3, -30000, 30000, true, true, coupsRestants,
+                int mm1 = coupsPossibles1[i].minmax(2, -30000, 30000, true, true, coupsRestants,
                                        joueur1.getCoefPos(coupsPasses),
                                        joueur1.getCoefMob(coupsPasses),
                                        joueur1.getCoefNb(coupsPasses));
@@ -98,7 +98,7 @@ void Jeu::vsMachine(bool tourMachine1, int coupsRestants, int coupsPasses) {
             int meilleurScore2 = -30000;
 
             for (int i = 0; i < coupsPossibles2.size(); i++) {
-                int mm2 = coupsPossibles2[i].minmax(3, -30000, 30000, false, false, coupsRestants,
+                int mm2 = coupsPossibles2[i].minmax(2, -30000, 30000, false, false, coupsRestants,
                                        joueur2.getCoefPos(coupsPasses),
                                        joueur2.getCoefMob(coupsPasses),
                                        joueur2.getCoefNb(coupsPasses));
@@ -110,8 +110,6 @@ void Jeu::vsMachine(bool tourMachine1, int coupsRestants, int coupsPasses) {
             world = meilleur2;
             vsMachine(true, coupsRestants-1,coupsPasses+1);
         }
-    } else {
-        world.affiche();
     }
 }
 

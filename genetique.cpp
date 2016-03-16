@@ -1,48 +1,56 @@
 #include "genetique.h"
 
-vector <Machine> initialise(){
+bool comparePair(const pair<Machine, float> c1, const pair<Machine, float> c2) {
+    return c1.second > c2.second;
+}
+
+vector<Machine> initialise(){
 
 }
 
-pair< vector<Machine>, vector<float> > selection(vector<Machine> echantillon_mere){
+vector<pair<Machine, float> > selection(vector<Machine> echantillon_mere) {
 	vector<int> victoires;
-	for(int k = 0; k < echantillon_fille.size(); k++){
+    int total = 0;
+
+    for(int k = 0; k < echantillon_mere.size(); k++) {
 		victoires.push_back(0);
 	}
-	for(int i = 0; i < echantillon_fille.size(); i++){
-		for(int j = 0; j < echantillon_fille.size(); j ++){
+    for(int i = 0; i < echantillon_mere.size(); i++) {
+        for(int j = 0; j < echantillon_mere.size(); j ++) {
 			if(i != j){
-				Jeu partie = Jeu(echantillon_fille[i], echantillon_fille[j]);
+                Jeu partie(echantillon_mere[i], echantillon_mere[j]);
+                partie.vsMachine(true,64,0);
 				// Verifier si  c'est la bonne machine qui gagne
 				if(partie.gagne()){
-					victoires[i] += 1;
+                    cout<<"1 gagne"<<endl;
+                    victoires[i]++;
 				}
 				else{
-					victoires[j] += 1;
+                    cout<<"2 gagne"<<endl;
+                    victoires[j]++;
 				}
+                total++;
 			}
 		}
 	}
-	int total = 0;
-	for(int l = 0; l < echantillon_fille.size(); l++){
-		total += victoires[l];
-	}
-	vector<int> proba;
-	for(int m = 0; m < echantillon_fille.size(); m++){
-		proba.push_back(victoires[m]/total);
-	}
-	pair< vector<Machine>, vector<float> > couples;
-	first(couples) = echantillon_mere;
-	second(couples) = proba;
+
+    vector<pair<Machine, float> > couples;
+
+    for (int i = 0; i < echantillon_mere.size(); i++) {
+        couples.push_back(make_pair(echantillon_mere[i], victoires[i]/(double)total));
+    }
+
+    sort(couples.begin(), couples.end(), comparePair);
+
 	return couples;
 }
 
-vector<Machine> croisement(pair<vector<Machine>, vector<float> >){
+vector<Machine> croisement(vector<pair<Machine, float> >) {
 
 }
 
-vector<Machine> mutation(vector<machine> generation_fille){
-	vector<machine> generation_fille2 = generation_fille;
+vector<Machine> mutation(vector<Machine> generation_fille){
+    vector<Machine> generation_fille2 = generation_fille;
 	for (int i = 0; i < generation_fille.size(); i++){
 		for (int k = 0; k < 64;k ++){
 			float mutantPos = ((float)rand()/(float)(RAND_MAX));
@@ -56,8 +64,8 @@ vector<Machine> mutation(vector<machine> generation_fille){
 	return generation_fille2;
 }
 
-vector<Machine> generation(vector<Machine> generation_mere){
-	pair< vector<Machine>, vector<float> > creation = selection(vector<Machine> echantillon_mere);
+vector<Machine> generation(vector<Machine> generation_mere) {
+    vector<pair<Machine, float> > creation = selection(generation_mere);
 	vector<Machine> generation_fille = croisement(creation);
 	int prob = rand()%500;
 	if (prob == 1){

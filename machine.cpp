@@ -1,8 +1,6 @@
 #include "machine.h"
 
 Machine::Machine(float min, float max, int nbCoefs) {
-    srand(time(NULL));
-
     float a = max - min;
 
     for (int i = 0; i<nbCoefs; i++) {

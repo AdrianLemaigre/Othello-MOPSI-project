@@ -4,6 +4,7 @@
 #include <vector>
 #include <time.h>
 #include <stdlib.h>
+#include <iostream>
 
 class Machine
 {

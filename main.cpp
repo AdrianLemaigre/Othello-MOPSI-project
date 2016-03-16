@@ -1,16 +1,20 @@
-#include "jeu.h"
+#include "genetique.h"
 
 int main(){
     init_table_point();
+    srand(time(NULL));
 
-    Jeu game;
+    vector<Machine> m;
 
-    game.vsMachine(true, 64, 0);
-    cout<<game.gagne()<<" a gagné !"<<endl;
+    for (int i = 0; i < 10; i++) {
+        m.push_back(Machine());
+    }
 
-    game.clear();
-    game.vsMachine(true, 64, 0);
-    cout<<game.gagne()<<" a gagné !"<<endl;
+    vector<pair<Machine, float> > p = selection(m);
+
+    for (int i=0; i<p.size(); i++) {
+        cout<<"Proba : "<<p[i].second<<endl;
+    }
 
     return 0;
 }
