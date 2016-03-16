@@ -9,14 +9,16 @@
 class Machine
 {
 private:
+    int name;
     std::vector<float> coefPosList;
     std::vector<float> coefMobList;
     std::vector<float> coefNbList;
 
 public:
-    Machine(float min = -1, float max = 1, int nbCoefs = 64);
-    Machine(std::vector<float> coef1, std::vector<float> coef2, std::vector<float> coef3);
+    Machine(int n = 0, float min = -1, float max = 1, int nbCoefs = 64);
+    Machine(std::vector<float> coef1, std::vector<float> coef2, std::vector<float> coef3, int n = 0);
 
+    int getName();
     int getSize();
     std::vector<float> getCoefPosList();
     std::vector<float> getCoefMobList();

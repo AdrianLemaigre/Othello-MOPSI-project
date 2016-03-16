@@ -8,7 +8,7 @@ vector<Machine> initialise(int nb){
     vector<Machine> m;
 
     for (int i = 0; i < nb; i++) {
-        m.push_back(Machine());
+        m.push_back(Machine(i));
     }
 
     return m;
@@ -54,6 +54,31 @@ vector<pair<Machine, float> > selection(vector<Machine> echantillon_mere) {
 	return couples;
 }
 
+vector<pair<Machine, float> > randomMachines(vector<pair<Machine, float> > couples) {
+    vector<pair <Machine, float> > parents;
+
+    for (int i = 0; i < couples.size(); i++) {
+        if (i%2 == 0) {
+            parents.push_back(couples[i/2]);
+        } else {
+            float randomProba = (float)rand()/(float)(RAND_MAX);
+            float sommeProba = couples[0].second;
+            int k = 0;
+
+            while (randomProba > sommeProba && k < couples.size() - 1) {
+                sommeProba += couples[k+1].second;
+                k++;
+            }
+
+            parents.push_back(couples[k]);
+        }
+    }
+
+    cout<<endl;
+
+    return parents;
+}
+
 vector<Machine> croisement(vector<pair<Machine, float> > couples) {
     vector<Machine> generation_fille;
 
@@ -85,7 +110,7 @@ vector<Machine> croisement(vector<pair<Machine, float> > couples) {
             coef3.push_back(mere.getCoefNb(k)*probaMere/(probaMere + probaPere) + pere.getCoefNb(k)*probaPere/(probaMere + probaPere));
         }
 
-        generation_fille.push_back(Machine(coef1, coef2, coef3));
+        generation_fille.push_back(Machine(coef1, coef2, coef3, i));
     }
 
     return generation_fille;
@@ -107,11 +132,30 @@ vector<Machine> mutation(vector<Machine> generation_fille){
 }
 
 vector<Machine> generation(vector<Machine> generation_mere) {
+    afficheVec(generation_mere);
     vector<pair<Machine, float> > creation = selection(generation_mere);
-	vector<Machine> generation_fille = croisement(creation);
+    afficheCouple(creation);
+    vector<pair<Machine, float> > randomCreation = randomMachines(creation);
+    afficheCouple(randomCreation);
+    vector<Machine> generation_fille = croisement(randomCreation);
+    afficheVec(generation_fille);
 	int prob = rand()%500;
-	if (prob == 1){
+    if (prob == 0){
 		generation_fille = mutation(generation_fille);
 	}
 	return generation_fille;
+}
+
+void afficheVec(vector<Machine> v) {
+    for (int i=0; i<v.size(); i++) {
+        cout<<v[i].getName()<<" ";
+    }
+    cout<<endl;
+}
+
+void afficheCouple(vector<pair<Machine, float> > v) {
+    for (int i=0; i<v.size(); i++) {
+        cout<<v[i].first.getName()<<" : "<<v[i].second<< " ";
+    }
+    cout<<endl;
 }

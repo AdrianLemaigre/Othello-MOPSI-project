@@ -5,7 +5,10 @@ int main(){
     srand(time(NULL));
 
     vector<Machine> m = initialise(10);
-    vector<Machine> m2 = generation(m);
+
+    for (int i=0; i<100; i++) {
+        m = generation(m);
+    }
 
     return 0;
 }

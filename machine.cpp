@@ -1,6 +1,7 @@
 #include "machine.h"
 
-Machine::Machine(float min, float max, int nbCoefs) {
+Machine::Machine(int n, float min, float max, int nbCoefs) {
+    name = n;
     float a = max - min;
 
     for (int i = 0; i<nbCoefs; i++) {
@@ -11,11 +12,16 @@ Machine::Machine(float min, float max, int nbCoefs) {
     }
 }
 
-Machine::Machine(std::vector<float> coef1, std::vector<float> coef2, std::vector<float> coef3)
+Machine::Machine(std::vector<float> coef1, std::vector<float> coef2, std::vector<float> coef3, int n)
 {
+    name = n;
     coefPosList = coef1;
     coefMobList = coef2;
     coefNbList = coef3;
+}
+
+int Machine::getName() {
+    return name;
 }
 
 int Machine::getSize() {

@@ -18,4 +18,7 @@ vector<Machine> mutation(vector<Machine>);
 
 vector<Machine> generation(vector<Machine>);
 
+void afficheVec(vector<Machine> v);
+void afficheCouple(vector<pair<Machine, float> > v);
+
 #endif
