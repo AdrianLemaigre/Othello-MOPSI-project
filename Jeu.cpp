@@ -72,6 +72,22 @@ void Jeu::vsHumain(bool tourHumain, int coupsRestants, int coupsPasses) {
 }
 
 void Jeu::vsMachine(bool tourMachine1, int coupsRestants, int coupsPasses) {
+    int depth;
+    if (coupsRestants > 60){
+        depth = 7;
+    }
+    else if (coupsRestants > 50) {
+        depth = 5;
+    }
+    else if (coupsRestants < 20){
+        depth = 5;
+    }
+    else if (coupsRestants < 15){
+        depth = 7;
+    }
+    else{
+        depth = 3;
+    }
     if (coupsRestants != 0) {
         if (tourMachine1) {
             vector<Grille> coupsPossibles1 = world.coups_possibles(1);
@@ -79,7 +95,7 @@ void Jeu::vsMachine(bool tourMachine1, int coupsRestants, int coupsPasses) {
             int meilleurScore1 = -30000;
 
             for (int i = 0; i < coupsPossibles1.size(); i++) {
-                int mm1 = coupsPossibles1[i].minmax(3, -30000, 30000, true, true, coupsRestants,
+                int mm1 = coupsPossibles1[i].minmax(depth, -30000, 30000, true, true, coupsRestants,
                                        joueur1.getCoefPos(coupsPasses),
                                        joueur1.getCoefMob(coupsPasses),
                                        joueur1.getCoefNb(coupsPasses));
@@ -96,7 +112,7 @@ void Jeu::vsMachine(bool tourMachine1, int coupsRestants, int coupsPasses) {
             int meilleurScore2 = -30000;
 
             for (int i = 0; i < coupsPossibles2.size(); i++) {
-                int mm2 = coupsPossibles2[i].minmax(3, -30000, 30000, false, false, coupsRestants,
+                int mm2 = coupsPossibles2[i].minmax(depth, -30000, 30000, false, false, coupsRestants,
                                        joueur2.getCoefPos(coupsPasses),
                                        joueur2.getCoefMob(coupsPasses),
                                        joueur2.getCoefNb(coupsPasses));
