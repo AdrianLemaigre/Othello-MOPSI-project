@@ -1,5 +1,29 @@
 #include "genetique.h"
 
+void afficheConsole(Grille G){
+    cout <<"Partie d'Othello" << endl;
+    for(i = 1; i < 9; i++)
+    {
+        cout <<"*****************************************"<< endl;
+        cout <<"*   *   *   *   *   *   *   *   *   *   *" << endl;
+        cout << "* "
+        for(j = 1; j <9; j++){
+            if (G.table[taille*i + j] == 0){
+             cout <<"B *";
+            }
+            elseif(G.table[taille*i + j] == 0){
+                cout <<"W *";
+            }
+            else{
+                cout << "   *";
+            }
+        }
+        cout << endl;
+        cout <<"*   *   *   *   *   *   *   *   *   *   *" << endl;
+    }
+    cout <<"*****************************************" << endl;
+}
+
 int main(){
     init_table_point();
     srand(time(NULL));
