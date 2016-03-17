@@ -72,19 +72,37 @@ void Machine::setCoefNb(int i, float coef){
 }
 
 void Machine::afficheCoefs(){
-    cout << "Position:" << endl;
+    std::cout << "Position:" << std::endl;
     for(int i = 0; i < coefPosList.size(); i++){
-     cout << " coef " << i << " " << coefPosList[i] << "     ";
+        std::cout << " coef " << i << " " << coefPosList[i] << "     ";
     }
-    cout << endl;
-    cout << "Mobilite:" << endl;
+    std::cout << std::endl;
+    std::cout << "Mobilite:" << std::endl;
     for(int i = 0; i < coefMobList.size(); i++){
-        cout << " coef " << i << " " << coefMobList[i] << "     ";
+        std::cout << " coef " << i << " " << coefMobList[i] << "     ";
     }
-    cout << endl;
-    cout << "Nombre:" << endl;
+    std::cout << std::endl;
+    std::cout << "Nombre:" << std::endl;
     for(int i = 0; i < coefNbList.size(); i++){
-        cout << " coef " << i << " " << coefNbList[i] << "     ";
+        std::cout << " coef " << i << " " << coefNbList[i] << "     ";
     }
-    cout << endl;
+    std::cout << std::endl;
+}
+
+void Machine::ecritCoefs(std::ofstream &file) {
+    file << "Position:" << std::endl;
+    for(int i = 0; i < coefPosList.size(); i++){
+        file << " coef " << i << " " << coefPosList[i] << "     ";
+    }
+    file << std::endl;
+    file << "Mobilite:" << std::endl;
+    for(int i = 0; i < coefMobList.size(); i++){
+        file << " coef " << i << " " << coefMobList[i] << "     ";
+    }
+    file << std::endl;
+    file << "Nombre:" << std::endl;
+    for(int i = 0; i < coefNbList.size(); i++){
+        file << " coef " << i << " " << coefNbList[i] << "     ";
+    }
+    file << std::endl;
 }
