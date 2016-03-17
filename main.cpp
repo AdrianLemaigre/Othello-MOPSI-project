@@ -28,9 +28,9 @@ int main(){
     init_table_point();
     srand(time(NULL));
 
-    vector<Machine> m = initialise(10);
+    vector<Machine> m = initialise(30);
     ofstream myfile;
-    myfile.open ("coefs.txt");
+    myfile.open ("coefs50.txt");
     m[0].ecritCoefs(myfile);
 
     while (true) {

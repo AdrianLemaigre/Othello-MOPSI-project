@@ -74,19 +74,19 @@ void Jeu::vsHumain(bool tourHumain, int coupsRestants, int coupsPasses) {
 void Jeu::vsMachine(bool tourMachine1, int coupsRestants, int coupsPasses) {
     int depth;
     if (coupsRestants > 60){
-        depth = 5;
+        depth = 4;
     }
     else if (coupsRestants > 50) {
-        depth = 3;
+        depth = 2;
     }
     else if (coupsRestants < 20){
-        depth = 3;
+        depth = 2;
     }
     else if (coupsRestants < 15){
-        depth = 7;
+        depth = 5;
     }
     else{
-        depth = 3;
+        depth = 2;
     }
     if (coupsRestants != 0) {
         if (tourMachine1) {

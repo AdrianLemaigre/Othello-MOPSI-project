@@ -27,7 +27,7 @@ vector<pair<Machine, float> > selection(vector<Machine> echantillon_mere) {
         for(int j = 0; j < echantillon_mere.size(); j ++) {
 			if(i != j){
                 Jeu partie(echantillon_mere[i], echantillon_mere[j]);
-                cout<<"\rSelection : "<<((i*10+j)*100)/(echantillon_mere.size()*echantillon_mere.size())<<"%"<<flush;
+                cout<<"\rSelection : "<<((i*echantillon_mere.size()+j)*100)/(echantillon_mere.size()*echantillon_mere.size())<<"%"<<flush;
                 partie.vsMachine(true,64,0);
 				// Verifier si  c'est la bonne machine qui gagne
 				if(partie.gagne()){
