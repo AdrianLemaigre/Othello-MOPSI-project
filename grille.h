@@ -45,6 +45,7 @@ public:
     int score_nb(bool joueur);
     int minmax (int profondeur, int alpha, int beta, bool joueur, bool cible, int coupsRestants,float coef_pos, float coef_mob, float coef_nb);
     void affiche();
+    void afficheConsole();
 
 private:
     int taille;

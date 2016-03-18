@@ -26,64 +26,72 @@ void Jeu::vsHumain(bool tourHumain, int coupsRestants, int coupsPasses) {
     }
 
     if (tourHumain) {
-        world.affiche();
-        int posx, posy;
-        std::cout<<"Entrer ligne : ";
-        std::cin>>posx;
-        std::cout<<endl;
-        std::cout<<"Entrer colonne : ";
-        std::cin>>posy;
-        std::cout<<endl;
-
-        while (!world.test_placement(posx, posy, 1)) {
-            std::cout<<"Emplacement non permis !"<<endl;
+        world.afficheConsole();
+        if (world.coups_possibles(1).size() == 0) {
+            vsHumain(false, coupsRestants, coupsPasses);
+        } else {
+            int posx, posy;
             std::cout<<"Entrer ligne : ";
             std::cin>>posx;
             std::cout<<endl;
             std::cout<<"Entrer colonne : ";
             std::cin>>posy;
             std::cout<<endl;
+
+            while (!world.test_placement(posx, posy, 1)) {
+                std::cout<<"Emplacement non permis !"<<endl;
+                std::cout<<"Entrer ligne : ";
+                std::cin>>posx;
+                std::cout<<endl;
+                std::cout<<"Entrer colonne : ";
+                std::cin>>posy;
+                std::cout<<endl;
+            }
+
+            Grille tmp = world.ajout_pion(posx, posy, 1);
+
+            world = tmp;
+            vsHumain(false, coupsRestants-1, coupsPasses+1);
         }
-
-        Grille tmp = world.ajout_pion(posx, posy, 1);
-
-        world = tmp;
-        vsHumain(false, coupsRestants-1, coupsPasses+1);
     } else {
         std::cout<<"Machine joue"<<endl;
 
         vector<Grille> coupsPossibles = world.coups_possibles(0);
-        Grille meilleur;
-        int meilleurScore = -30000;
+        if (coupsPossibles.size() == 0) {
+            vsHumain(true, coupsRestants,coupsPasses);
+        } else {
+            Grille meilleur = world;
+            int meilleurScore = -30000;
 
-        for (int i = 0; i < coupsPossibles.size(); i++) {
-            int mm = world.minmax(5, -30000, 30000, false, false, coupsRestants,
-                                   joueur2.getCoefPos(coupsPasses),
-                                   joueur2.getCoefMob(coupsPasses),
-                                   joueur2.getCoefNb(coupsPasses));
-            if (meilleurScore < mm) {
-                meilleur = coupsPossibles[i];
-                meilleurScore = mm;
+            for (int i = 0; i < coupsPossibles.size(); i++) {
+                int mm = world.minmax(5, -30000, 30000, false, false, coupsRestants,
+                                       joueur2.getCoefPos(coupsPasses),
+                                       joueur2.getCoefMob(coupsPasses),
+                                       joueur2.getCoefNb(coupsPasses));
+                if (meilleurScore < mm) {
+                    meilleur = coupsPossibles[i];
+                    meilleurScore = mm;
+                }
             }
+            world = meilleur;
+            vsHumain(true, coupsRestants-1,coupsPasses+1);
         }
-        world = meilleur;
-        vsHumain(true, coupsRestants-1,coupsPasses+1);
     }
 }
 
 void Jeu::vsMachine(bool tourMachine1, int coupsRestants, int coupsPasses) {
     int depth;
     if (coupsRestants > 60){
-        depth = 4;
+        depth = 3;
     }
     else if (coupsRestants > 50) {
-        depth = 2;
+        depth = 1;
     }
     else if (coupsRestants < 20){
         depth = 2;
     }
     else if (coupsRestants < 15){
-        depth = 5;
+        depth = 3;
     }
     else{
         depth = 2;

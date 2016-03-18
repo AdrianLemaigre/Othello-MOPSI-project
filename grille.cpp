@@ -262,3 +262,24 @@ void Grille::affiche() {
     }
     cout<<endl;
 }
+
+void Grille::afficheConsole(){
+    for(int i = 1; i < taille-1; i++)
+    {
+        cout <<"*********************************"<< endl;
+        cout << "* ";
+        for(int j = 1; j < taille-1; j++){
+            if (get(gettaille()*i + j).getcouleur() == 0){
+             cout <<"B * ";
+            }
+            else if(get(gettaille()*i + j).getcouleur() == 1){
+                cout <<"W * ";
+            }
+            else{
+                cout << "  * ";
+            }
+        }
+        cout << endl;
+    }
+    cout <<"*********************************" << endl;
+}

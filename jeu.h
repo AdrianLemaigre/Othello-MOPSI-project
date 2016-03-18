@@ -21,6 +21,7 @@ public:
     void vsMachine(bool tourMachine1, int coupsRestants, int coupsPasses);
     int gagne();
     void clear();
+    void affiche() {world.afficheConsole();}
 
 };
 
